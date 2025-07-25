@@ -146,11 +146,11 @@
   
   /* Smooth Transitions */
   .transition-smooth {
-    @apply transition-all duration-[var(--transition-smooth)] ease-out;
+    @apply transition-all duration-300 ease-out;
   }
   
   .transition-base {
-    @apply transition-all duration-[var(--transition-base)] ease-out;
+    @apply transition-all duration-150 ease-out;
   }
   
   /* Modern Gradients */
