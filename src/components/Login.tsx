@@ -4,10 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, Mail, Lock, AlertCircle, HelpCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, AlertCircle, HelpCircle, Package, ArrowLeft } from 'lucide-react';
 import { useAuthStore, UserRole } from '@/store/authStore';
 import { toast } from '@/hooks/use-toast';
 import ForgotPassword from './ForgotPassword';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -56,23 +57,43 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-muted-foreground mb-2">
-            Courier Management System
-          </h1>
+    <div className="min-h-screen bg-gradient-subtle">
+      {/* Navigation Header */}
+      <header className="p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 hover-lift"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Button>
+          <ThemeToggle />
         </div>
+      </header>
 
-        {/* Login Form */}
-        <Card className="shadow-lg">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl font-semibold">Sign In</CardTitle>
-            <CardDescription>
-              Enter your credentials to access your account
-            </CardDescription>
-          </CardHeader>
+      <div className="flex items-center justify-center p-4 min-h-[calc(100vh-80px)]">
+        <div className="w-full max-w-md space-y-6 animate-fade-in">
+          {/* Modern Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 mb-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <Package className="h-8 w-8 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold text-foreground">RapidCourier</h1>
+            </div>
+            <p className="text-muted-foreground">Welcome back to your courier dashboard</p>
+          </div>
+
+          {/* Modern Login Form */}
+          <Card className="card-modern hover-scale">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-2xl font-semibold text-foreground">Sign In</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Enter your credentials to access your dashboard
+              </CardDescription>
+            </CardHeader>
           <CardContent className="space-y-4">
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
@@ -122,7 +143,7 @@ export default function Login() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-primary hover:bg-primary-dark" 
+                className="w-full hover-lift transition-smooth" 
                 disabled={isLoading}
               >
                 {isLoading ? 'Signing In...' : 'Sign In'}
@@ -147,63 +168,64 @@ export default function Login() {
           </CardContent>
         </Card>
 
-        {/* Demo Credentials */}
-        <Card className="shadow-lg">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Demo Credentials</CardTitle>
-            <CardDescription>
-              Click any button below to auto-fill login credentials
-            </CardDescription>
-          </CardHeader>
+          {/* Modern Demo Credentials */}
+          <Card className="card-modern">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-foreground">Quick Demo Access</CardTitle>
+              <CardDescription>
+                Experience the platform instantly with demo accounts
+              </CardDescription>
+            </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-1 gap-3">
               <Button
                 onClick={() => handleDemoLogin('admin')}
                 variant="outline"
-                className="justify-between"
+                className="justify-between hover-lift group"
               >
-                <span className="font-medium">Admin</span>
+                <span className="font-medium group-hover:text-primary transition-colors">Admin</span>
                 <span className="text-xs text-muted-foreground">Full system access</span>
               </Button>
               
               <Button
                 onClick={() => handleDemoLogin('agent')}
                 variant="outline"
-                className="justify-between"
+                className="justify-between hover-lift group"
               >
-                <span className="font-medium">Agent</span>
+                <span className="font-medium group-hover:text-primary transition-colors">Agent</span>
                 <span className="text-xs text-muted-foreground">Courier management</span>
               </Button>
               
               <Button
                 onClick={() => handleDemoLogin('user')}
                 variant="outline"
-                className="justify-between"
+                className="justify-between hover-lift group"
               >
-                <span className="font-medium">User</span>
+                <span className="font-medium group-hover:text-primary transition-colors">User</span>
                 <span className="text-xs text-muted-foreground">Track packages</span>
               </Button>
             </div>
             
-            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-orange-50 p-3 rounded-lg">
-              <AlertCircle className="h-4 w-4 text-orange-500" />
-              <span>Password for all demo accounts is either <strong>password</strong> or <strong>123456</strong></span>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-primary/5 border border-primary/20 p-3 rounded-lg">
+              <AlertCircle className="h-4 w-4 text-primary" />
+              <span>Demo password: <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">password</code></span>
             </div>
           </CardContent>
         </Card>
 
-        {/* Support Contact Link */}
-        <Card className="text-center">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-center gap-2 text-muted-foreground">
-              <HelpCircle className="h-4 w-4" />
-              <span className="text-sm">Need help?</span>
-              <Link to="/support" className="text-primary hover:underline text-sm">
-                Contact Support
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+          {/* Support Contact Link */}
+          <Card className="card-modern text-center">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                <HelpCircle className="h-4 w-4" />
+                <span className="text-sm">Need help?</span>
+                <Link to="/support" className="text-primary hover:underline text-sm transition-colors">
+                  Contact Support
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <ForgotPassword 

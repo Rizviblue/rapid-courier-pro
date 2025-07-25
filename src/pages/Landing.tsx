@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Package, Truck, Users, BarChart3, Shield, Clock } from "lucide-react";
+import { Package, Truck, Users, BarChart3, Shield, Clock, ArrowRight, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -40,56 +41,98 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
+    <div className="min-h-screen bg-gradient-subtle">
+      {/* Modern Header */}
+      <header className="glass glass-dark border-b border-border/50 sticky top-0 z-50 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Package className="h-8 w-8 text-primary" />
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-primary/10 rounded-xl">
+              <Package className="h-6 w-6 text-primary" />
+            </div>
             <h1 className="text-2xl font-bold text-foreground">RapidCourier</h1>
           </div>
-          <Button onClick={() => navigate('/login')} variant="default">
-            Login
-          </Button>
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <Button onClick={() => navigate('/login')} className="hover-lift">
+              Login
+            </Button>
+          </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-bold text-foreground mb-6">
-            Modern Courier Management System
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Streamline your courier operations with our comprehensive platform. 
-            Manage packages, track deliveries, and optimize routes with real-time analytics.
-          </p>
-          <div className="space-x-4">
-            <Button size="lg" onClick={() => navigate('/login')}>
-              Get Started
-            </Button>
-            <Button size="lg" variant="outline" onClick={() => navigate('/register')}>
-              Sign Up
-            </Button>
+      {/* Modern Hero Section */}
+      <section className="relative py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-primary opacity-5"></div>
+        <div className="container mx-auto text-center relative z-10">
+          <div className="animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <Zap className="h-4 w-4" />
+              Next-Generation Courier Platform
+            </div>
+            
+            <h1 className="text-6xl md:text-7xl font-bold text-foreground mb-6 leading-tight">
+              Modern Courier
+              <span className="block text-primary">Management</span>
+            </h1>
+            
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+              Transform your delivery operations with AI-powered routing, real-time tracking, 
+              and seamless collaboration tools designed for the modern logistics world.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button 
+                size="lg" 
+                onClick={() => navigate('/login')}
+                className="hover-lift group text-lg px-8 py-4 h-auto"
+              >
+                Get Started Today
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => navigate('/register')}
+                className="hover-scale text-lg px-8 py-4 h-auto"
+              >
+                Create Account
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 px-4 bg-muted/50">
+      {/* Modern Features Section */}
+      <section className="py-20 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-            Powerful Features
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
+              Everything You Need
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Powerful features designed to streamline every aspect of your courier operations
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="text-center">
-                <CardHeader>
-                  <feature.icon className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <CardTitle>{feature.title}</CardTitle>
+              <Card 
+                key={index} 
+                className="card-modern hover-lift group text-center relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-5 transition-opacity"></div>
+                <CardHeader className="relative z-10">
+                  <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                    <feature.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription>{feature.description}</CardDescription>
+                <CardContent className="relative z-10">
+                  <CardDescription className="text-base leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             ))}

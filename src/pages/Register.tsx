@@ -5,9 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Eye, EyeOff, Mail, Lock, User, Phone, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone, AlertCircle, Package, ArrowLeft } from 'lucide-react';
 import { useAuthStore, UserRole } from '@/store/authStore';
 import { toast } from '@/hooks/use-toast';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -97,23 +98,43 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md space-y-6">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-muted-foreground mb-2">
-            Courier Management System
-          </h1>
+    <div className="min-h-screen bg-gradient-subtle">
+      {/* Navigation Header */}
+      <header className="p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 hover-lift"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Button>
+          <ThemeToggle />
         </div>
+      </header>
 
-        {/* Registration Form */}
-        <Card className="shadow-lg">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl font-semibold">Create Account</CardTitle>
-            <CardDescription>
-              Join our courier management platform
-            </CardDescription>
-          </CardHeader>
+      <div className="flex items-center justify-center p-4 min-h-[calc(100vh-80px)]">
+        <div className="w-full max-w-md space-y-6 animate-fade-in">
+          {/* Modern Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 mb-4">
+              <div className="p-3 bg-primary/10 rounded-xl">
+                <Package className="h-8 w-8 text-primary" />
+              </div>
+              <h1 className="text-3xl font-bold text-foreground">RapidCourier</h1>
+            </div>
+            <p className="text-muted-foreground">Create your courier management account</p>
+          </div>
+
+          {/* Modern Registration Form */}
+          <Card className="card-modern hover-scale">
+            <CardHeader className="text-center pb-6">
+              <CardTitle className="text-2xl font-semibold text-foreground">Create Account</CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Join our modern courier management platform
+              </CardDescription>
+            </CardHeader>
           <CardContent className="space-y-4">
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="space-y-2">
@@ -236,7 +257,7 @@ export default function Register() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-primary hover:bg-primary-dark" 
+                className="w-full hover-lift transition-smooth" 
                 disabled={isLoading}
               >
                 {isLoading ? 'Creating Account...' : 'Create Account'}
@@ -254,41 +275,42 @@ export default function Register() {
           </CardContent>
         </Card>
 
-        {/* Demo Registration */}
-        <Card className="shadow-lg">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg">Quick Demo Registration</CardTitle>
-            <CardDescription>
-              Click to auto-fill registration form
-            </CardDescription>
-          </CardHeader>
+          {/* Modern Demo Registration */}
+          <Card className="card-modern">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg text-foreground">Quick Demo Registration</CardTitle>
+              <CardDescription>
+                Experience the platform instantly with pre-filled demo data
+              </CardDescription>
+            </CardHeader>
           <CardContent className="space-y-3">
             <div className="grid grid-cols-1 gap-3">
               <Button
                 onClick={() => handleDemoRegister('agent')}
                 variant="outline"
-                className="justify-between"
+                className="justify-between hover-lift group"
               >
-                <span className="font-medium">Register as Agent</span>
+                <span className="font-medium group-hover:text-primary transition-colors">Register as Agent</span>
                 <span className="text-xs text-muted-foreground">Manage couriers</span>
               </Button>
               
               <Button
                 onClick={() => handleDemoRegister('user')}
                 variant="outline"
-                className="justify-between"
+                className="justify-between hover-lift group"
               >
-                <span className="font-medium">Register as User</span>
+                <span className="font-medium group-hover:text-primary transition-colors">Register as User</span>
                 <span className="text-xs text-muted-foreground">Track packages</span>
               </Button>
             </div>
             
-            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-blue-50 p-3 rounded-lg">
-              <AlertCircle className="h-4 w-4 text-blue-500" />
-              <span>Demo accounts use <strong>password</strong> as the password</span>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-primary/5 border border-primary/20 p-3 rounded-lg">
+              <AlertCircle className="h-4 w-4 text-primary" />
+              <span>Demo password: <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">password</code></span>
             </div>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   );
